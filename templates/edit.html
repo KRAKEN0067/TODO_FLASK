@@ -8,10 +8,8 @@
 
   </head>
   <body>
-
     
-    
-    <form action="{{ url_for('edit', index=index) }}" method="post">
+    <form action="{{ url_for('edit', id=todo.id) }}" method="post">
       <textarea name="todo" rows="2" style="width: 100%; resize: vertical;">{{ todo['task'] }}</textarea>
       <button type="submit">Save</button>
     </form>
