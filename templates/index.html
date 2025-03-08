@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO APP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+
+    <p {% if not todos%} class="empty">
+        Empty!
+    </p>
+    {% endif %}
+
+    <h1 style="font-size: 40px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(255, 255, 255); font-weight: bold;">
+        TODOS RECORDS
+    </h1>
+    
+        <table >
+            <tr>
+                <th>PREVIEW</th>
+                <th style="min-width: 200px;">TASK</th>
+                <th>DUE DATE</th>
+                <th>CHECK</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+            </tr>
+
+            {% for todo in todos %}
+
+            <tr>
+
+                <td class="preview">
+                    <a href="{{url_for('preview', index=loop.index0)}}">
+                        <img src="{{url_for('static', filename='images/preview.png')}}" style="width: 25px; height: 25px;">
+                    </a>
+                </td>
+                
+                <td class="text">
+                    <span {%if todo['done'] %} style="text-decoration: line-through" {%endif%}>{{ todo['task'] }}</span>
+
+                </td>
+
+                <td>
+                    <input type="date" class="date">
+                </td>
+                
+                <td class="check">
+                    <a href="{{url_for('check', index=loop.index0) }}">
+                        <img src="{{url_for('static', filename='images/tick.png') if todo['done']  else url_for('static', filename='images/cross.png') }}" style="height: 20px; width: 20px;">
+                    </a>
+
+                </td>
+
+                <td class="edit">
+                    <a href="{{url_for('edit', index=loop.index0) }}">
+                        <img src="{{ url_for('static', filename='images/edit.png') }}" alt="editimage" style="width: 20px; height:20px; border-radius: 25px;">
+                    </a>
+
+                </td>
+
+                <td class="delete">
+                    <a href="{{url_for('delete', index=loop.index0) }}">
+                        <img src="{{ url_for('static', filename='images/delete.png') }}" alt="deleteimage" style="width: 20px; height: 20px">
+                    </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    <div class="textclass">
+        <form action="{{ url_for('add') }}" method="post">
+            <input type="text" name="todo" required placeholder="Enter Your Task"/>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const inputField = document.querySelector("input[name='todo']");
+          inputField.focus(); 
+      
+          document.querySelector("form").addEventListener("submit", function (event) {
+            setTimeout(() => {
+              inputField.focus(); 
+            }, 0);
+          });
+        });
+      </script>      
+  </body>
+</html>
