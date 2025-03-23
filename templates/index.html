@@ -16,7 +16,7 @@
     <h1 style="font-size: 40px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(255, 255, 255); font-weight: bold;">
         TODOS RECORDS
     </h1>
-    
+        {% if todos %}
         <table >
             <tr>
                 <th>PREVIEW</th>
@@ -70,7 +70,7 @@
             {% endfor %}
 
         </table>
-
+        {% endif %}
     <div class="textclass">
         <form action="{{ url_for('add') }}" method="post">
             <input type="text" name="todo" required placeholder="Enter Your Task"/>
